@@ -7,7 +7,7 @@ steps:
       [
         'build',
         '-t',
-        'us-central1-docker.pkg.dev/containerdemo-365021/rise-vest-be/dev',
+        'us-central1-docker.pkg.dev/containerdemo-365021/food-court-be/dev',
         '-f',
         'Dockerfile',
         '.',
@@ -15,7 +15,7 @@ steps:
    # Step 2: Push Docker image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args:
-      ['push', 'us-central1-docker.pkg.dev/containerdemo-365021/rise-vest-be/dev']
+      ['push', 'us-central1-docker.pkg.dev/containerdemo-365021/food-court-be/dev']
   
     # Step 3: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -23,9 +23,9 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'fudap-lite-be-staging'
+      - 'food-court-be-staging'
       - '--image'
-      - 'us-central1-docker.pkg.dev/containerdemo-365021/rise-vest-be/dev'
+      - 'us-central1-docker.pkg.dev/containerdemo-365021/food-court-be/dev'
       - '--region'
       - 'us-central1'
       - '--platform'
