@@ -23,6 +23,10 @@ export default {
     seeds: {
       directory: "src/seeds",
     },
+    pool: {
+      min: 2,
+      max: 10, // Increase the max pool size as needed
+    },
   },
   development: {
     client: "pg",
