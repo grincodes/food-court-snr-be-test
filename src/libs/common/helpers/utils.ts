@@ -16,9 +16,11 @@ interface FileValidationProps {
 
 const handleDbErrors = (err) => {
   //foreign key voiation error
-  if (err.number === 547) {
+  if (err.number === 547 || err?.nativeError?.code == "23503") {
     // Handle foreign key violation error here
-    throw new BadRequestException("Invalid Foreign Key");
+    throw new BadRequestException(
+      `${err.nativeError.constraint || "Invalid Foreign Key"} constraint`
+    );
   }
   //duplicate value
   else if (err.number === 2627 || err.number === 2601) {

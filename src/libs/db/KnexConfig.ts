@@ -1,32 +1,59 @@
+import dotenv = require("dotenv");
+import path = require("path");
+
+// Specify the path to the .env file
+const envPath = path.resolve(__dirname, "../../../.env");
+
+// Load environment variables from the .env file
+dotenv.config({ path: envPath });
+
 export default {
   testing: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
+    client: "pg",
+    connection: {
+      host: process.env.DATABASE_HOST,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      port: process.env.DATABASE_PORT,
+    },
     migrations: {
-      directory: 'src/migrations',
+      directory: "./migrations",
     },
     seeds: {
-      directory: 'src/seeds',
+      directory: "src/seeds",
     },
   },
-  local: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
+  development: {
+    client: "pg",
+    connection: {
+      host: process.env.DATABASE_HOST,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      port: process.env.DATABASE_PORT,
+    },
     migrations: {
-      directory: 'src/migrations',
+      directory: "./migrations",
     },
     seeds: {
-      directory: 'src/seeds',
+      directory: "src/seeds",
     },
   },
   production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
+    client: "pg",
+    connection: {
+      host: process.env.DATABASE_HOST,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      port: process.env.DATABASE_PORT,
+    },
     migrations: {
-      directory: 'src/migrations',
+      directory: "./migrations",
     },
     seeds: {
-      directory: 'src/seeds',
+      directory: "src/seeds",
     },
   },
 };

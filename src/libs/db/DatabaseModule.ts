@@ -5,45 +5,42 @@ import { UNIT_OF_WORK_PROVIDER } from "../constants";
 import * as path from "path";
 import { knex as Knex } from "knex";
 import { Model, initialize } from "objection";
-
+import { Brands } from "src/modules/brand/infra/entity/BrandsEntity";
+var pg = require("pg");
+pg.types.setTypeParser(20, "text", parseInt);
 export let knexConnection = {};
-
 
 class DatabaseService implements OnModuleInit, OnModuleDestroy {
   private readonly knex = Knex({
-        client: 'pg',
-        // connection: process.env.DATABASE_URL,
-        connection: {
-          host: Config.DATABASE_HOST,
-          port: Config.DATABASE_PORT,
-          database: Config.DATABASE_NAME,
-          user: Config.DATABASE_USER,
-          password: Config.DATABASE_PASSWORD,
-        },
-        migrations: {
-          directory: 'src/migrations',
-        },
-        seeds: {
-          directory: 'src/seeds',
-        },
-});
-
+    client: "pg",
+    // connection: process.env.DATABASE_URL,
+    connection: {
+      host: Config.DATABASE_HOST,
+      port: Config.DATABASE_PORT,
+      database: Config.DATABASE_NAME,
+      user: Config.DATABASE_USER,
+      password: Config.DATABASE_PASSWORD,
+    },
+    migrations: {
+      directory: "src/migrations",
+    },
+    seeds: {
+      directory: "src/seeds",
+    },
+  });
 
   async onModuleInit(): Promise<void> {
-    
-    //initialize models
-    await initialize(this.knex,[])
+    // //initialize models
+    // await initialize(this.knex, [Brands]);
+    Model.knex(this.knex); // Bind the model to the Knex instance
 
     try {
-         await this.knex.raw('SELECT 1');
+      await this.knex.raw("SELECT 1");
     } catch (error) {
-
-      throw new Error('Db Initialization Error')
+      throw new Error("Db Initialization Error");
     }
-   
 
-    knexConnection = this.knex
-   
+    knexConnection = this.knex;
   }
 
   async onModuleDestroy(): Promise<void> {

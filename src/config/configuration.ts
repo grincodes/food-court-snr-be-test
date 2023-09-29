@@ -3,14 +3,13 @@ import {
   IsBoolean,
   IsEmail,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   validateSync,
 } from "class-validator";
 
 import dotenv = require("dotenv");
-import { sendLogMessageToSlack } from "src/libs/common/helpers/utils";
-import { CMS_LOGS_SLACK_CHANNEL } from "src/libs/constants";
 dotenv.config();
 
 class Configuration {
@@ -37,12 +36,17 @@ class Configuration {
   @IsString()
   readonly SLACK_TOKEN = process.env.SLACK_TOKEN as string;
 
+  @IsNumber()
+  readonly JWT_EXPIRATION = Number(process.env.JWT_EXPIRATION);
+
+  @IsString()
+  readonly JWT_SECRET = process.env.JWT_SECRET as string;
+
   @IsBoolean()
   readonly DATABASE_SYNC = process.env.DATABASE_SYNC === "true";
 
   @IsInt()
   readonly PORT = Number(process.env.PORT);
-
 
   constructor() {
     const error = validateSync(this);
