@@ -2,10 +2,9 @@ import { Global, Module, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
 import { Config } from "src/config/configuration";
 import { UnitOfWork } from "./UnitOfWork";
 import { UNIT_OF_WORK_PROVIDER } from "../constants";
-import * as path from "path";
 import { knex as Knex } from "knex";
-import { Model, initialize } from "objection";
-import { Brands } from "src/modules/brand/infra/entity/BrandsEntity";
+import { Model } from "objection";
+
 var pg = require("pg");
 pg.types.setTypeParser(20, "text", parseInt);
 export let knexConnection = {};
