@@ -29,19 +29,28 @@ export class CreateOrderDto {
 
   @IsOptional()
   @Transform((data: any) => {
-    return BigInt(data.value);
+    if (data.value !== undefined) {
+      return BigInt(data.value);
+    }
+    return data.value;
   })
   rider_id?: bigint;
 
   @IsOptional()
   @Transform((data: any) => {
-    return BigInt(data.value);
+    if (data.value !== undefined) {
+      return BigInt(data.value);
+    }
+    return data.value;
   })
   confirmed_by_id?: bigint;
 
   @IsOptional()
   @Transform((data: any) => {
-    return BigInt(data.value);
+    if (data.value !== undefined) {
+      return BigInt(data.value);
+    }
+    return data.value;
   })
   completed_by_id?: bigint;
 
